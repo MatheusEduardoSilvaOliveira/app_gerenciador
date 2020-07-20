@@ -1,0 +1,59 @@
+<%- include ('./partials/header.ejs')%>
+<body>
+  <%- include ('./partials/navbar.ejs')%>
+  <style>
+    h5 {
+    font-size: small;
+        }
+  </style>
+  <div class="container">
+    <br>
+    <a href="/cadastrarCantor" class="btn btn-primary">Novo</a>
+    <hr>
+    <h1>Cantores Cadastrados</h1>
+
+    <% cantores.forEach(cantores =>{ %>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <h3><%= cantores.cantor_nome%>
+
+            <% if (cantores.cantor_img == null) {%>
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation" fill="red" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+              </svg>
+            <%} %>
+        </h3>
+        <% if (cantores.cantor_palco == 1) {%>
+          <h5>Palco: Principal</h5>
+        <%} else{%>
+          <h5>Palco: Secundario</h5>
+        <%}%>
+
+        <h5>Data de apresentação: <%= cantores.cantor_data%></h5>
+        </div>
+
+        <div class="card-footer">
+          <!-- <a href="/feed/atualizar/<%= cantores.cantor_id%>" class="btn btn-warning">Editar</a>-->
+
+          <a href="/cantor/editar/<%= cantores.cantor_id%>" class="btn btn-primary">Editar</a>
+
+          <form method="POST" action="/cantor/delete" style="display: inline;" onsubmit="confirmarDelecao(event, this)">
+            <input type="hidden" name="cantor_id" value="<%= cantores.cantor_id%>">
+            <button class="btn btn-danger">Excluir</button>
+          </form>
+        </div>
+      </div>
+    <% })%>
+  </div>
+</body>
+  <script>
+  function confirmarDelecao(event, form){
+    event.preventDefault();
+    var decisao = confirm("Realmente deseja excluir registro?");
+    if(decisao){
+      form.submit();
+    }
+  }
+</script>
+<%- include ('./partials/footer.ejs')%>

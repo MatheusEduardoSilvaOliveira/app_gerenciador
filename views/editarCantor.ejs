@@ -1,0 +1,79 @@
+<%- include ('./partials/header.ejs') %>
+<body>
+  <%- include ('./partials/navbar.ejs') %>
+  <div class="container">
+    <div class="card" id="formulario_pergunta">
+      <div class="card-header">
+        <h3>Editar</h3>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/cantor/atualizar" class="needs-validation" novalidate>
+          <label for="cantor">Cantor</label>
+          <input id="cantor_nome" name="cantor_nome" value="<%= cantores.cantor_nome%>"  class="form-control" required>
+          <br>
+
+          <label for="palco">Palco</label>
+          <select id="cantor_palco" name="cantor_palco" class="form-control" required>
+            <% if (cantores.cantor_palco == 1) { %>
+              <option value="1" selected>Principal</option>
+              <option value="2">Secundário</option>
+            <%} else { %>
+              <option value="1">Principal</option>
+              <option value="2" selected>Secundário</option>
+            <% } %>
+          </select>
+
+          <br>
+          <label for="ordem">Ordem</label>
+          <select id="cantor_ordem" name="cantor_ordem" class="form-control" required>
+            <% if (cantores.cantor_ordem == 1) { %>
+                <option value="1" selected>1º</option>
+                <option value="2">2º</option>
+                <option value="3">3º</option>
+                <option value="4">4º</option>
+                <option value="5">5º</option>
+            <%} if (cantores.cantor_ordem == 2) { %>
+                <option value="1">1º</option>
+                <option value="2" selected>2º</option>
+                <option value="3">3º</option>
+                <option value="4">4º</option>
+                <option value="5">5º</option>
+            <%} if (cantores.cantor_ordem == 3) { %>
+                <option value="1">1º</option>
+                <option value="2">2º</option>
+                <option value="3" selected>3º</option>
+                <option value="4">4º</option>
+                <option value="5">5º</option>
+            <%} if (cantores.cantor_ordem == 4) { %>
+                <option value="1">1º</option>
+                <option value="2">2º</option>
+                <option value="3">3º</option>
+                <option value="4" selected>4º</option>
+                <option value="5">5º</option>
+            <%} if (cantores.cantor_ordem == 5) { %>
+                <option value="1">1º</option>
+                <option value="2">2º</option>
+                <option value="3">3º</option>
+                <option value="4">4º</option>
+                <option value="5" selected>5º</option>
+            <% } %>
+          </select>
+
+          <br>
+          <label for="data">Data</label>
+          <input id="cantor_data" name="data" type="date" value="<%= cantores.cantor_data%>" class="form-control" required>
+
+          <hr>
+
+
+          <input type="hidden" name="cantor_id" value="<%= cantores.cantor_id%>">
+           <!--<input type="hidden" name="cantor_img" value="<%= cantores.cantor_img%>"> -->
+
+          <button class="btn btn-success">Atualizar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+<%- include ('./partials/footer.ejs')%>

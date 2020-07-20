@@ -1,0 +1,60 @@
+<%- include ('./partials/header.ejs') %>
+<body>
+  <%- include ('./partials/navbar.ejs') %>
+  <div class="container">
+    <div class="card" id="formulario_pergunta">
+      <div class="card-header">
+        <h3>Cadastrar</h3>
+      </div>
+      <div class="card-body">
+
+        <form method="POST" action="/salvarCantor" enctype="multipart/form-data" class="needs-validation" novalidate>
+
+          <label for="cantor">Cantor</label>
+          <input id="cantor_nome" name="nome" placeholder="Nome do cantor" type="text" class="form-control" required>
+          <br>
+
+          <label for="palco">Palco</label>
+          <select  id="cantor_palco" name="palco" class="form-control" required>
+            <option value="" selected disabled>Selecione um</option>
+            <option value="1">Principal</option>
+            <option value="2">Secundário</option>
+          </select>
+          <br>
+
+          <label for="ordem">Ordem</label>
+          <select  id="cantor_ordem" name="ordem" class="form-control" required>
+            <option value="" selected disabled>Selecione um</option>
+            <option value="1">1º</option>
+            <option value="2">2º</option>
+            <option value="3">3º</option>
+            <option value="4">4º</option>
+            <option value="5">5º</option>
+          </select>
+
+          <br>
+          <label for="data">Data</label>
+          <input id="cantor_data" name="data" type="date" class="form-control" required>
+          <br>
+
+          <input type='file' name='img' accept='image/*'>
+          <br>
+
+          <hr>
+          <button class="btn btn-success">Salvar</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+  const decriptBase64 = string => {
+	let varB64 = atob(string);
+	return varB64;
+  }
+</script>
+
+<%- include ('./partials/footer.ejs') %>
