@@ -8,46 +8,69 @@
   </style>
   <div class="container">
     <br>
+    <h1>Cantores Cadastrados</h1>
     <a href="/cadastrarCantor" class="btn btn-primary">Novo</a>
     <hr>
-    <h1>Cantores Cadastrados</h1>
 
-    <% cantores.forEach(cantores =>{ %>
-      <br>
-      <div class="card">
-        <div class="card-body">
-          <h3><%= cantores.cantor_nome%>
+    <label for="palco">Filtrar cantores por palco</label>
+    <select  id="cantor_palco" name="palco" class="form-control" onChange="update()">
+      <option value="" selected disabled>Selecione um</option>
+      <option value="1">Principal</option>
+      <option value="2">Secundário</option>
+    </select>
 
-            <% if (cantores.cantor_img == null) {%>
-              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation" fill="red" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-              </svg>
-            <%} %>
-        </h3>
-        <% if (cantores.cantor_palco == 1) {%>
-          <h5>Palco: Principal</h5>
-        <%} else{%>
-          <h5>Palco: Secundario</h5>
-        <%}%>
+    <input type="hidden" name="cantor_img" value="<%= cantores.cantor_img%>">
+    <input type="hidden" id="value">
 
-        <h5>Data de apresentação: <%= cantores.cantor_data%></h5>
-        </div>
+    <br>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">CANTOR</th>
+          <th scope="col">PALCO</th>
+          <th scope="col">APRESENTAÇÃO</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
 
-        <div class="card-footer">
-          <!-- <a href="/feed/atualizar/<%= cantores.cantor_id%>" class="btn btn-warning">Editar</a>-->
+      <tbody>
+        <% cantores.forEach(cantores =>{ %>
+        <tr>
+          <td style="width:20%"><%= cantores.cantor_nome%></td>
+          <% if (cantores.cantor_palco == 1) { %>
+            <td style="width:20%">Principal</td>
+          <%} else if (cantores.cantor_palco == 2) { %>
+            <td style="width:20%">Secundário</td>
+          <% } %>
 
-          <a href="/cantor/editar/<%= cantores.cantor_id%>" class="btn btn-primary">Editar</a>
+          <td style="width:20%"><%= cantores.cantor_data%></td>
+          <td style="width:14%"><a href="/cantor/editar/<%= cantores.cantor_id%>" class="btn btn-primary">Editar</a>
 
           <form method="POST" action="/cantor/delete" style="display: inline;" onsubmit="confirmarDelecao(event, this)">
             <input type="hidden" name="cantor_id" value="<%= cantores.cantor_id%>">
             <button class="btn btn-danger">Excluir</button>
           </form>
-        </div>
-      </div>
-    <% })%>
-  </div>
+
+          </td>
+        </tr>
+        <% })%>
+      </table>
+    </tbody>
+
 </body>
+
   <script>
+
+  function update() {
+    var select = document.getElementById('cantor_palco');
+    var value = select.options[select.selectedIndex].value;
+    console.log(value);
+
+    document.getElementById('value').value = value;
+  }
+
+	update();
+
   function confirmarDelecao(event, form){
     event.preventDefault();
     var decisao = confirm("Realmente deseja excluir registro?");
@@ -55,5 +78,6 @@
       form.submit();
     }
   }
+
 </script>
 <%- include ('./partials/footer.ejs')%>

@@ -24,6 +24,10 @@ const Cantor = connection.define('cantor', {
     type: Sequelize.DATEONLY,
     allowNull: false
   },
+  cantor_url_img: {
+    type: Sequelize.TEXT,
+    allowNull: true
+  },
   cantor_img: {
     type: Sequelize.BLOB('long'),
     allowNull: true

@@ -16,6 +16,8 @@ connection
 router.get("/", (req, res) => {
   Cantor.findAll({
     raw: true, order: [
+      ['cantor_palco',
+        'ASC'],
       ['cantor_data',
         'ASC']
     ]
@@ -49,8 +51,9 @@ router.post('/cantor/atualizar', (req, res) => {
   var palco = req.body.cantor_palco;
   var ordem = req.body.cantor_ordem;
   var data = req.body.cantor_data;
+  var url = req.body.url;
 
-  Cantor.update({ cantor_nome: nome, cantor_palco: palco, cantor_data: data, cantor_ordem: ordem }, {
+  Cantor.update({ cantor_nome: nome, cantor_palco: palco, cantor_data: data, cantor_ordem: ordem, cantor_url_img: url }, {
     where: {
       cantor_id: id
     }

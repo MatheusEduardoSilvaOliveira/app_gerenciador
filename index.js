@@ -51,19 +51,20 @@ app.post("/salvarCantor", upload.single('img'), (req, res) => {
   var palco = req.body.palco;
   var data = req.body.data;
   var ordem = req.body.ordem;
+  var url = req.body.url;
   console.log(nome);
   console.log(data);
   console.log(data.substring(0, 10));
   console.log(palco);
-  console.log("REQ"+req.file);
+  console.log("REQ" + req.file);
   var imagem;
-  if (req.file == null){
+  if (req.file == null) {
     imagem = ""
   }
-  else{
-  var imagem = "uploads/" + req.file.filename;
-  var binaryData = fs.readFileSync(imagem);
-  var base64String = new Buffer.from(binaryData).toString("base64");
+  else {
+    var imagem = "uploads/" + req.file.filename;
+    var binaryData = fs.readFileSync(imagem);
+    var base64String = new Buffer.from(binaryData).toString("base64");
   }
   //console.log(base64String);
 
@@ -73,6 +74,7 @@ app.post("/salvarCantor", upload.single('img'), (req, res) => {
       cantor_palco: palco,
       cantor_data: data,
       cantor_ordem: ordem,
+      cantor_url_img: url,
       cantor_img: base64String
     }).then(() => {
       res.redirect("/");
